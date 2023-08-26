@@ -29,7 +29,9 @@ const about = () => {
                 Biography
               </h2>
               {aboutData.map((item, index) => (
-                <p className="font-medium my-2">{item}</p>
+                <p className="font-medium my-2" key={index}>
+                  {item}
+                </p>
               ))}
             </div>
             <div
