@@ -27,13 +27,16 @@ import rabbitmq from "../public/images/skills/rabbitmq.png";
 import nginx from "../public/images/skills/nginx.png";
 
 import distributed from "../public/images/projects/distributed.jpeg";
-import hbf from "../public/images/projects/hbf.jpeg";
+// import hbf from "../public/images/projects/hbf.jpeg";
 import inventory from "../public/images/projects/inventory.jpeg";
 import micropy from "../public/images/projects/micro.jpeg";
+import studyBud from "../public/images/projects/studybud.png";
+import rebel from "../public/images/projects/rebel.png";
+import chaos from "../public/images/projects/chaos.jpeg";
 
 export const mail = "drakesakthi@gmail.com";
 export const aboutData = [
-  "Hi I'm Sakthi Nathan, a dedicated software engineer with a flair for crafting efficient, elegant, and robust solutions in the digital realm. With a 1+ year of journey in the ever-evolving tech landscape, I've honed my skills to transform complex challenges into streamlined, user-friendly experiences.",
+  "c",
   "My coding journey isn't just about building functional applications—it's a creative process where innovation and logic intertwine to bring ideas to life. I firmly believe that exceptional software is born from the marriage of cutting-edge technology and a deep understanding of user needs.",
   "Whether it's coding a dynamic website, developing a seamless mobile app, or architecting any digital tool, I thrive on a commitment to coding excellence and a user-first approach. As a problem solver at heart, I relish the opportunity to turn intricate problems into elegant solutions.",
 ];
@@ -170,16 +173,16 @@ export const skills = [
     name: "Rabbit Mq",
     image: rabbitmq,
   },
-  {
-    name: "Nginx",
-    image: nginx,
-  },
+  // {
+  //   name: "Nginx",
+  //   image: nginx,
+  // },
 ];
 
 export const projectsData = [
   {
     title: "Plugable Inventory System",
-    demo_link: "",
+    demo_link: "#",
     github_link: "",
     image: inventory,
     isFeatured: true,
@@ -187,8 +190,8 @@ export const projectsData = [
   },
   {
     title: "Micropy",
-    demo_link: "",
-    github_link: "",
+    demo_link: "#",
+    github_link: "https://github.com/NathanDrake007/micropy",
     image: micropy,
     isFeatured: false,
     summary:
@@ -196,29 +199,47 @@ export const projectsData = [
   },
   {
     title: "Parallel Search",
-    demo_link: "",
-    github_link: "",
+    demo_link: "#",
+    github_link: "https://github.com/NathanDrake007/Parallel-Search",
     image: distributed,
     isFeatured: false,
     summary:
       "Parallel Search: Master-slave architecture for concurrent search across files. Scalable distributed systems design and parallel processing algorithms showcase efficiency.",
   },
-  {
-    title: "Hospital Bed Finder",
-    demo_link: "",
-    github_link: "",
-    image: hbf,
-    isFeatured: false,
-    summary:
-      "Hospital Bed Finder: Real-time ambulance dispatch system for locating hospitals with available beds. Geolocation, data communication, and healthcare integration ensure swift patient care.",
-  },
+  // {
+  //   title: "Hospital Bed Finder",
+  //   demo_link: "",
+  //   github_link: "",
+  //   image: hbf,
+  //   isFeatured: false,
+  //   summary:
+  //     "Hospital Bed Finder: Real-time ambulance dispatch system for locating hospitals with available beds. Geolocation, data communication, and healthcare integration ensure swift patient care.",
+  // },
   {
     title: "Chaos",
-    demo_link: "",
-    github_link: "",
-    image: hbf,
+    demo_link: "#",
+    github_link: "https://github.com/NathanDrake007/ChaOS",
+    image: chaos,
     isFeatured: false,
     summary:
       "Chaos: Python and OpenCV computer vision software for Windows OS control using finger gestures, eyeball tracking, and a voice assistant. Enhances accessibility for disabled users.",
+  },
+  {
+    title: "StudyBud",
+    demo_link: "#",
+    github_link: "https://github.com/NathanDrake007/study-bud",
+    image: studyBud,
+    isFeatured: false,
+    summary:
+      "StudyBud: Your dedicated platform for academic collaboration. Find your ideal study buddy and boost your learning journey together.",
+  },
+  {
+    title: "Rebel Grooming",
+    demo_link: "#",
+    github_link: "https://github.com/NathanDrake007/The_Rebel_Grooming",
+    image: rebel,
+    isFeatured: false,
+    summary:
+      "Rebel Grooming: Elevate your grooming routine with our premium men's products. Discover a curated selection for a refined and confident look.",
   },
 ];

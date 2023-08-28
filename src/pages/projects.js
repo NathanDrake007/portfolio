@@ -9,6 +9,19 @@ import { motion } from "framer-motion";
 import TransitionEffect from "@/components/TransitionEffect";
 import { projectsData } from "@/data";
 const FramerImage = motion(Image);
+
+const LinkWrapper = ({ href, ...props }) => {
+  if (href == "#") {
+    // return <button {...props}>Visit Project</button>;
+    return <></>;
+  }
+  return (
+    <Link href={href} {...props}>
+      Visit Project
+    </Link>
+  );
+};
+
 const FeaturedProject = ({ type, title, summary, img, link, github }) => {
   return (
     <article
@@ -55,14 +68,12 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
           <Link href={github} target="_blank" className="w-10">
             <GithubIcon />
           </Link>
-          <Link
+          <LinkWrapper
             href={link}
             target="_blank"
             className="ml-4 rounded-lg bg-dark text-light px-6 p-2 text-lg font-semibold
             dark:bg-light dark:text-dark sm:px-4 sm:text-base"
-          >
-            Visit Project
-          </Link>
+          />
         </div>
       </div>
     </article>
@@ -84,7 +95,7 @@ const Project = ({ title, type, img, link, github, summary }) => {
         <FramerImage
           src={img}
           alt={title}
-          className="w-full h-auto"
+          className="w-50 h-auto"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
         />
@@ -106,13 +117,11 @@ const Project = ({ title, type, img, link, github, summary }) => {
           {summary}
         </p>
         <div className="w-full mt-2 flex items-center justify-between">
-          <Link
+          <LinkWrapper
             href={link}
             target="_blank"
             className="text-lg font-semibold underline md:text-base"
-          >
-            Visit
-          </Link>
+          />
           <Link href={github} target="_blank" className="w-8 md:w-6">
             <GithubIcon />
           </Link>
