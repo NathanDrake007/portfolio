@@ -96,7 +96,7 @@ export default async function Home() {
             ))}
           </div>
           <Link
-            href="/blog"
+            href="https://medium.com/@drakesakthi"
             className="flex pt-2 gap-x-2 text-blue-500 items-center hover:underline"
           >
             <h3 className="text-lg font-light">Read More</h3>
