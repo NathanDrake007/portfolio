@@ -1,0 +1,46 @@
+// Prisma schema file (schema.prisma)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql" // or any other database provider
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id          Int          @id @default(autoincrement())
+  title       String
+  summary     String
+  image       String
+  tag         String[]
+  readingTime Int
+  content     String // json string with necessary information
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  collection  Collection[]
+}
+
+model Collection {
+  id          String @id @default(uuid())
+  title       String
+  summary     String
+  image       String
+  tag         String
+  readingTime Int
+  totalPosts  Int
+  posts       Post[]
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  image       String
+  date        DateTime @default(now())
+  published   Boolean
+  featured    Boolean
+  codeLink    String
+  hostedLink  String
+}
