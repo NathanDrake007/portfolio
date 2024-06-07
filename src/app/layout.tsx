@@ -18,14 +18,7 @@ export const metadata: Metadata = {
     title: "sakthinathan.com",
     description: "Software Engineer",
     url: "https://sakthinathan.com",
-    siteName: "chronark.com",
-    images: [
-      {
-        url: "https://chronark.com/og.png",
-        width: 1920,
-        height: 1080,
-      },
-    ],
+    siteName: "sakthinathan.com",
     locale: "en-US",
     type: "website",
   },
