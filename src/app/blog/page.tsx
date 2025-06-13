@@ -1,31 +1,39 @@
-import BlogCard from "@/components/blog/blogCard";
-// import { CollectionItem } from "@/components/blog/collectionItem";
-import Header from "@/components/global/header";
-import prisma from "@/lib/db";
+import Link from "next/link";
+import { getAllBlogPosts } from "@/lib/mdx";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
-async function getData() {
-  const blogs = await prisma.post.findMany();
-  // const collections = await prisma.collection.findMany();
-  return {
-    blogs,
-    // collections,
-  };
-}
-export default async function BlogPage() {
-  const {
-    blogs,
-    // collections
-  } = await getData();
+export default function BlogPage() {
+  const posts = getAllBlogPosts();
 
   return (
-    <div className="w-2/3">
-      <Header
-        title="Blog"
-        subtitle="Explore insightful blog posts curated to share knowledge and expertise on a diverse range of topics."
-      />
-      {blogs.map((blog, index) => (
-        <BlogCard key={index} blog={blog} />
-      ))}
-    </div>
+    <main className="min-h-screen bg-zinc-900 text-white">
+      <div className="max-w-5xl mx-auto px-4 py-12">
+        <h1 className="text-3xl font-bold mb-8">Blog Posts</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post) => (
+            <Link href={`/blog/${post.slug}`} key={post.slug}>
+              <Card className="h-full bg-zinc-800/50 hover:bg-zinc-800/70 transition-colors">
+                <CardHeader>
+                  <CardTitle className="text-lg">{post.title}</CardTitle>
+                  <CardDescription className="text-zinc-300 line-clamp-3">
+                    {post.summary}
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter className="flex flex-col items-start text-zinc-400 text-sm">
+                  <span>{post.date}</span>
+                  <span>{post.readingTime}</span>
+                </CardFooter>
+              </Card>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </main>
   );
 }
