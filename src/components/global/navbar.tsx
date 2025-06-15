@@ -56,6 +56,16 @@ export default function Navbar() {
             >
               Projects
             </Link>
+            <Link
+              href="/notes"
+              className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
+                pathname === "/notes"
+                  ? "text-zinc-900 dark:text-white"
+                  : "text-zinc-500 dark:text-zinc-400"
+              }`}
+            >
+              Notes
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-x-4">
@@ -114,6 +124,17 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
           >
             Projects
+          </Link>
+          <Link
+            href="/notes"
+            className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
+              pathname === "/notes"
+                ? "text-zinc-900 dark:text-white"
+                : "text-zinc-500 dark:text-zinc-400"
+            }`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Notes
           </Link>
         </div>
       </div>

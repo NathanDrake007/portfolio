@@ -1,40 +1,101 @@
-import { getBlogPostBySlug, getAllBlogPosts } from "@/lib/mdx";
+import { PortableText, type SanityDocument } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { client } from "@/lib/sanity";
+import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
 
-interface BlogPostPageProps {
-  params: {
-    slug: string;
-  };
-}
+const BLOG_POST_QUERY = `*[_type == "blog" && slug.current == $slug][0] {
+  _id,
+  title,
+  slug,
+  author,
+  excerpt,
+  content,
+  category,
+  tags,
+  readTime,
+  publishedAt,
+  featured,
+  "featuredImage": featuredImage.asset->url,
+  "featuredImageAlt": featuredImage.alt
+}`;
 
-export async function generateStaticParams() {
-  const posts = getAllBlogPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
+const { projectId, dataset } = client.config();
+const urlFor = (source: SanityImageSource) =>
+  projectId && dataset
+    ? imageUrlBuilder({ projectId, dataset }).image(source)
+    : null;
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getBlogPostBySlug(params.slug);
+const options = { next: { revalidate: 30 } };
+
+export default async function BlogPostPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const post = await client.fetch<SanityDocument>(
+    BLOG_POST_QUERY,
+    { slug: params.slug },
+    options
+  );
 
   if (!post) {
     notFound();
   }
 
   return (
-    <main className="min-h-screen bg-zinc-900 text-white">
-      <article className="max-w-3xl mx-auto px-4 py-12">
+    <main className="container mx-auto min-h-screen max-w-3xl p-8">
+      <Link href="/blog" className="hover:underline mb-8 inline-block">
+        ← Back to posts
+      </Link>
+
+      <article className="prose dark:prose-invert max-w-none">
+        {post.featuredImage && (
+          <div className="relative w-full aspect-video mb-8">
+            <Image
+              src={post.featuredImage}
+              alt={post.featuredImageAlt || post.title}
+              fill
+              className="object-cover rounded-lg"
+              priority
+            />
+          </div>
+        )}
+
         <header className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
-          <div className="flex items-center gap-4 text-zinc-400">
-            <time dateTime={post.date}>{post.date}</time>
+          <div className="flex items-center gap-4 text-muted-foreground">
+            <span>{post.author}</span>
             <span>•</span>
-            <span>{post.readingTime}</span>
+            <time dateTime={post.publishedAt}>
+              {new Date(post.publishedAt).toLocaleDateString()}
+            </time>
+            {post.readTime && (
+              <>
+                <span>•</span>
+                <span>{post.readTime} min read</span>
+              </>
+            )}
+          </div>
+          <div className="flex items-center gap-2 mt-4">
+            <span className="px-2 py-1 text-sm bg-zinc-100 dark:bg-zinc-800 rounded-md">
+              {post.category.replace("-", " ")}
+            </span>
+            {post.tags?.map((tag: string) => (
+              <span
+                key={tag}
+                className="px-2 py-1 text-sm bg-zinc-100 dark:bg-zinc-800 rounded-md"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         </header>
-        <div className="prose prose-invert max-w-none">
-          <MDXRemote source={post.content} />
+
+        <div className="prose dark:prose-invert max-w-none">
+          {Array.isArray(post.content) && <PortableText value={post.content} />}
         </div>
       </article>
     </main>

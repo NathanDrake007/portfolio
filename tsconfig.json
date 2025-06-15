@@ -19,7 +19,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "jsxImportSource": "react",
+    "types": ["react", "react-dom", "node"]
   },
   "include": [
     "next-env.d.ts",
