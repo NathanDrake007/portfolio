@@ -35,12 +35,12 @@ export default function Home() {
           <div className="max-w-4xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
               {/* Profile Image - Order first on mobile */}
-              <div className="order-1 md:order-2 w-48 h-48 md:w-64 md:h-64 relative rounded-full overflow-hidden border-4 border-zinc-200 dark:border-zinc-800 shadow-lg">
+              <div className="order-1 md:order-2 md:ml-auto w-48 h-48 md:w-64 md:h-64 relative rounded-full overflow-hidden border-4 border-zinc-200 dark:border-zinc-800 shadow-lg flex-shrink-0">
                 <Image
                   src="/profile.jpg"
                   alt="Sakthi Nathan"
                   fill
-                  className="object-cover"
+                  className="object-cover object-right"
                   priority
                 />
               </div>
@@ -94,7 +94,7 @@ export default function Home() {
                 </div>
                 <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-6">
                   <Link
-                    href="https://github.com/sakthinathan"
+                    href="https://github.com/NathanDrake007"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors"
@@ -259,47 +259,13 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Featured Posts Section */}
-        <section className="mb-12 sm:mb-16">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
-            <h2 className="text-xl sm:text-2xl font-bold">
-              Featured Posts (under construction)
-            </h2>
-            <Link
-              href="/blog"
-              className="flex items-center gap-x-2 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors text-sm sm:text-base"
-            >
-              <span>View all posts</span>
-              <FontAwesomeIcon icon={faArrowRight} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {recentPosts.map((post) => (
-              <Link href={`/blog/${post.slug}`} key={post.slug}>
-                <Card className="h-full bg-white hover:bg-zinc-50 dark:bg-zinc-800/50 dark:hover:bg-zinc-800/70 transition-colors">
-                  <CardHeader className="p-4 sm:p-6">
-                    <CardTitle className="text-base sm:text-lg">
-                      {post.title}
-                    </CardTitle>
-                    <CardDescription className="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 line-clamp-3">
-                      {post.summary}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardFooter className="flex flex-col items-start text-zinc-500 dark:text-zinc-400 text-xs sm:text-sm p-4 sm:p-6 pt-0 sm:pt-0">
-                    <span>{post.date}</span>
-                    <span>{post.readingTime}</span>
-                  </CardFooter>
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </section>
+        {/* Featured Posts Section - disabled */}
 
         {/* Featured Projects Section */}
         <section>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
             <h2 className="text-xl sm:text-2xl font-bold">
-              Featured Projects (under construction)
+              Featured Projects
             </h2>
             <Link
               href="/projects"

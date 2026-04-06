@@ -1,0 +1,81 @@
+---
+title: "HashFlow"
+description: "A video creative asset management system that registers MP4 video URLs, computes MD5 hashes asynchronously via a RabbitMQ pipeline, and provides a searchable, paginated UI to manage records."
+image: "/projects/hashflow.png"
+codeLink: "https://github.com/NathanDrake007/HashFlow"
+hostedLink: ""
+featured: true
+technologies:
+  - "Go"
+  - "gRPC"
+  - "Gin"
+  - "React"
+  - "TypeScript"
+  - "MySQL"
+  - "RabbitMQ"
+  - "Protocol Buffers"
+  - "Docker"
+---
+
+# HashFlow
+
+A video creative asset management system. HashFlow lets you register `.mp4` video URLs, automatically computes their MD5 hashes in the background, and provides a searchable, paginated UI to manage the records.
+
+## Architecture
+
+```
+┌─────────────────┐     HTTP/JSON     ┌─────────────────┐     gRPC      ┌─────────────────┐
+│   Frontend      │ ──────────────▶  │  HTTP Gateway   │ ────────────▶ │  gRPC Server    │
+│  React + Vite   │                  │   Gin :8080     │               │   Go :50051     │
+│  :5173          │                  └─────────────────┘               └────────┬────────┘
+└─────────────────┘                                                              │
+                                                                        ┌────────┴────────┐
+                                                                        │                 │
+                                                                   ┌────▼────┐     ┌──────▼──────┐
+                                                                   │  MySQL  │     │  RabbitMQ   │
+                                                                   │  :3306  │     │  :5672      │
+                                                                   └─────────┘     └─────────────┘
+```
+
+The system is split into two backend services:
+
+- **gRPC Server** — handles business logic, GORM/MySQL persistence, and MD5 computation via RabbitMQ workers
+- **HTTP Gateway** — translates REST requests to gRPC calls using Gin
+
+## Async MD5 Pipeline
+
+1. On create/update, the gRPC server publishes a task (record ID + video URL) to the `md5_computation` RabbitMQ queue
+2. A worker goroutine consumes the task, checks available disk space, downloads the video, and computes its MD5 hash
+3. A notification goroutine writes the result back to MySQL; the creative status transitions `PROCESSING → COMPLETED | FAILED`
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, TypeScript, Vite, Tailwind CSS, MUI, Axios |
+| HTTP Gateway | Go, Gin |
+| gRPC Server | Go, gRPC, GORM |
+| Database | MySQL 8.0 |
+| Message Queue | RabbitMQ 3.13 |
+| Serialization | Protocol Buffers |
+
+## REST API
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/creatives?page=1&size=25` | Paginated list of all creatives |
+| `GET` | `/creatives/search?name=X&md5=Y` | Search by name (fuzzy) or MD5 (exact) |
+| `POST` | `/creatives` | Create a creative |
+| `PUT` | `/creatives/:id` | Update a creative |
+| `DELETE` | `/creatives/:id` | Delete a creative |
+
+**Status values:** `PROCESSING` | `COMPLETED` | `FAILED`
+
+## Testing
+
+Tests use an in-memory SQLite database and a `bufconn` in-process gRPC listener — no external services required.
+
+```bash
+cd backend/server
+go test ./pkg/api/...
+```

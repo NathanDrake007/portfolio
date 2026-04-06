@@ -37,16 +37,6 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/blog"
-              className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
-                pathname === "/blog"
-                  ? "text-zinc-900 dark:text-white"
-                  : "text-zinc-500 dark:text-zinc-400"
-              }`}
-            >
-              Blog
-            </Link>
-            <Link
               href="/projects"
               className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
                 pathname === "/projects"
@@ -55,16 +45,6 @@ export default function Navbar() {
               }`}
             >
               Projects
-            </Link>
-            <Link
-              href="/notes"
-              className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
-                pathname === "/notes"
-                  ? "text-zinc-900 dark:text-white"
-                  : "text-zinc-500 dark:text-zinc-400"
-              }`}
-            >
-              Notes
             </Link>
           </div>
         </div>
@@ -104,17 +84,6 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            href="/blog"
-            className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
-              pathname === "/blog"
-                ? "text-zinc-900 dark:text-white"
-                : "text-zinc-500 dark:text-zinc-400"
-            }`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Blog
-          </Link>
-          <Link
             href="/projects"
             className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
               pathname === "/projects"
@@ -124,17 +93,6 @@ export default function Navbar() {
             onClick={() => setIsMenuOpen(false)}
           >
             Projects
-          </Link>
-          <Link
-            href="/notes"
-            className={`text-sm font-medium transition-colors hover:text-zinc-900 dark:hover:text-white ${
-              pathname === "/notes"
-                ? "text-zinc-900 dark:text-white"
-                : "text-zinc-500 dark:text-zinc-400"
-            }`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            Notes
           </Link>
         </div>
       </div>
